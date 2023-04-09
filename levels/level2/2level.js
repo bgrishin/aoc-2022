@@ -28,6 +28,12 @@ const KILL_COMBINATIONS = {
   S: "R",
 };
 
+const LOSE_COMBINATIONS = {
+  R: "S",
+  P: "R",
+  S: "P",
+};
+
 const rspCheats = fs
   .readFileSync("rsp-cheats.txt", "utf8")
   .split("\n")
@@ -47,4 +53,20 @@ const results = rspCheats
   })
   .reduce((partialSum, a) => partialSum + a, 0);
 
-console.log(results);
+console.log(results); // part 1
+
+const results2 = rspCheats
+  .map((cheat) => {
+    const [player2, expectedOver] = cheat.split(" ");
+
+    if (expectedOver === "X") {
+      return SCORES.wins.lose + SCORES.tools[LOSE_COMBINATIONS[TURNS[player2]]];
+    } else if (expectedOver === "Y") {
+      return SCORES.wins.draw + SCORES.tools[TURNS[player2]];
+    } else if (expectedOver === "Z") {
+      return SCORES.tools[KILL_COMBINATIONS[TURNS[player2]]] + SCORES.wins.win;
+    }
+  })
+  .reduce((partialSum, a) => partialSum + a, 0);
+
+console.log(results2); // part 2
