@@ -29,8 +29,8 @@ const moveTail = () => {
   uniqueTailPositions.add(tail.join(","));
 };
 
-moves.forEach((movement) => {
-  const [direction, amount] = movement.split(" ");
+moves.map((move) => {
+  const [direction, amount] = move.split(" ");
 
   for (let i = 0; i < +amount; i++) {
     moveHead(direction);
@@ -41,3 +41,53 @@ moves.forEach((movement) => {
 const result = uniqueTailPositions.size;
 
 console.log(result); // part 1
+
+const body = [
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+  [0, 0],
+];
+
+const bodyHead = body[0];
+const bodyTail = body[body.length - 1];
+const uniqueBodyTailPositions = new Set(["0,0"]);
+
+const moveBodyHead = (direction) => {
+  if (direction === "L") bodyHead[0]--;
+  if (direction === "U") bodyHead[1]++;
+  if (direction === "R") bodyHead[0]++;
+  if (direction === "D") bodyHead[1]--;
+};
+
+const moveBody = (bodyPart) => {
+  const prev = body[body.indexOf(bodyPart) - 1];
+  const distance = [bodyPart[0] - prev[0], bodyPart[1] - prev[1]];
+  if (areTouching(distance)) return;
+
+  bodyPart[0] -= Math.sign(distance[0]);
+  bodyPart[1] -= Math.sign(distance[1]);
+
+  bodyPart === bodyTail
+    ? uniqueBodyTailPositions.add(bodyPart.join(","))
+    : null;
+};
+
+moves.map((move) => {
+  const [direction, amount] = move.split(" ");
+
+  for (let i = 0; i < +amount; i++) {
+    moveBodyHead(direction);
+    for (let j = 1; j < 10; j++) {
+      moveBody(body[j]);
+    }
+  }
+});
+
+console.log(uniqueBodyTailPositions.size); // part 2
