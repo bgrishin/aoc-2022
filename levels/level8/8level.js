@@ -83,22 +83,3 @@ const result2 = Math.max(
 );
 
 console.log(result2); // part 2
-
-// const [upperTrees, downTrees, leftTrees, rightTrees] = getTreesAround(2, 1).map(
-//   (x) => x.filter((rowTree) => +getTree(2, 1) >= +rowTree).length
-// );
-//
-// console.log(getTree(2, 3));
-// console.log(
-//   getTreesAround(2, 1).map((x) => {
-//     let visibleTrees = [];
-//     for (let i = 0; i < x.length; i++) {
-//       if (x[i] >= +getTree(2, 1)) {
-//         visibleTrees.push(x[i]);
-//         break;
-//       }
-//       visibleTrees.push(x[i]);
-//     }
-//     return visibleTrees;
-//   })
-// );
