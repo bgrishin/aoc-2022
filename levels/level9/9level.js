@@ -38,4 +38,6 @@ moves.forEach((movement) => {
   }
 });
 
-console.log(uniqueTailPositions.size);
+const result = uniqueTailPositions.size;
+
+console.log(result); // part 1
