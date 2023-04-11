@@ -31,12 +31,12 @@ const getTreesAround = (x, y) => {
     leftTrees.push(+tree);
   }
 
-  for (let i = 1; i < 99 - x; i++) {
+  for (let i = 1; i < trees.length - x; i++) {
     const tree = getTree(x + i, y);
     rightTrees.push(+tree);
   }
 
-  return [upperTrees, downTrees, leftTrees.reverse(), rightTrees];
+  return [upperTrees, downTrees, leftTrees, rightTrees];
 };
 
 const result = trees
@@ -57,3 +57,48 @@ const result = trees
   .filter((x) => x).length;
 
 console.log(result); // part 1
+
+const result2 = Math.max(
+  ...trees.flatMap((treeNet, y) => {
+    return treeNet.split("").map((tree, x) => {
+      const [upperTrees, downTrees, leftTrees, rightTrees] = getTreesAround(
+        x,
+        y
+      ).map((x) => {
+        let visibleTrees = [];
+        for (let i = 0; i < x.length; i++) {
+          if (x[i] >= +tree) {
+            visibleTrees.push(x[i]);
+            break;
+          }
+          visibleTrees.push(x[i]);
+        }
+        return visibleTrees.length;
+      });
+      const scenicRate = upperTrees * leftTrees * downTrees * rightTrees;
+
+      return scenicRate;
+    });
+  })
+);
+
+console.log(result2); // part 2
+
+// const [upperTrees, downTrees, leftTrees, rightTrees] = getTreesAround(2, 1).map(
+//   (x) => x.filter((rowTree) => +getTree(2, 1) >= +rowTree).length
+// );
+//
+// console.log(getTree(2, 3));
+// console.log(
+//   getTreesAround(2, 1).map((x) => {
+//     let visibleTrees = [];
+//     for (let i = 0; i < x.length; i++) {
+//       if (x[i] >= +getTree(2, 1)) {
+//         visibleTrees.push(x[i]);
+//         break;
+//       }
+//       visibleTrees.push(x[i]);
+//     }
+//     return visibleTrees;
+//   })
+// );
