@@ -46,9 +46,7 @@ const textTick = (count) => {
     const pixel = [x - 1, x, x + 1].includes(cycle % 40) ? "#" : ".";
     cycle++;
     const displaySpaceEnds = cycle % 40 === 0;
-    process.stdout.write(
-      new TextEncoder().encode(`${pixel}${displaySpaceEnds ? "\n" : ""}`)
-    );
+    process.stdout.write(`${pixel}${displaySpaceEnds ? "\n" : ""}`);
   }
 };
 
