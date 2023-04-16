@@ -36,3 +36,11 @@ const countSteps = (start) => {
 const result = countSteps(start);
 
 console.log(result); // part 1
+
+const result2 = landscape
+  .map((char, i) => ({ char, start: i }))
+  .filter(({ char }) => char === "a".charCodeAt(0))
+  .map(({ start }) => countSteps(start))
+  .reduce((min, v) => (min < v ? min : v));
+
+console.log(result2 === Infinity ? "No path found" : result2); // part 2
