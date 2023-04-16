@@ -47,8 +47,9 @@ const runGame = (rounds, part2) => {
         const old = item;
 
         const newValue = part2
-          ? Math.floor(eval(monkey.operation))
+          ? eval(monkey.operation)
           : Math.floor(eval(monkey.operation) / 3);
+
         const reducedNewValue = newValue % commonMultiple;
 
         if (newValue % monkey.divisibleBy === 0) {
